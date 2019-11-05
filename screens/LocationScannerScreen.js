@@ -145,8 +145,7 @@ class LocationScannerScreen extends Component {
           this.setState({ skuArray: skuArray});
         
       })
-      .catch((error) => {     
-        console.log(error.response.data);
+      .catch((error) => {             
         if (error.response.status == 302) {
           Alert.alert(
             'Notificación',
@@ -158,8 +157,7 @@ class LocationScannerScreen extends Component {
             } }],
             { cancelable: false },
           );          
-        } else {
-          console.log(error.response.data);
+        } else {          
           Alert.alert(
             'Error al ubicar',
             error.response.data.message+' '+textInput,
@@ -192,8 +190,7 @@ class LocationScannerScreen extends Component {
           this.setState({ skuArray: skuArray});
         
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error) => {        
         Vibration.vibrate(PATTERN);
         Alert.alert(
           'Error al Escanear',

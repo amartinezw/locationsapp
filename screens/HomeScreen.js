@@ -84,8 +84,7 @@ class HomeScreen extends Component {
             })          
         })
         .catch((error) => {          
-          Vibration.vibrate(PATTERN);
-          console.log(error);
+          Vibration.vibrate(PATTERN);          
           Alert.alert(
             'Error al Escanear',
             'No se encontró el SKU/Estilo '+textInput,

@@ -33,8 +33,7 @@ class LocationScreen extends Component {
       .then(() => {
         this.setState({'isLoading': false});
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((error) => {        
         Vibration.vibrate(PATTERN);
         Alert.alert(
           'Error',

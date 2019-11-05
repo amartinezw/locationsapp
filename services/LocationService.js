@@ -20,9 +20,8 @@ export const getLocation = (userToken: UserToken, locationString: String) => Loc
       AppStore.dispatch(LocationActions.updateLocationScanned(locationModel));
       Promise.resolve();
   })
-  .catch((error) => {   
-    console.log(error.response); 
-    //console.log('There has been a problem with your fetch operation: ' + error.message);
+  .catch((error) => {       
+    console.log('There has been a problem with your fetch operation: ' + error.message);
       throw error;
   });
 
