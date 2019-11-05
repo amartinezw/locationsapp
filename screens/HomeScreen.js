@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from 'react';
 import {
+  AppState,
   Image,
   Platform,
   Alert,
@@ -50,6 +51,7 @@ class HomeScreen extends Component {
   };
 
   state = {
+    appState: AppState.currentState,
     'textInput': '',
   };
 
@@ -60,18 +62,20 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {    
-    const { navigation } = this.props;    
+    const { navigation } = this.props;  
+    this.appStateListener = AppState.addListener('change', this.inputScanSetFocus);  
     this.focusListener = navigation.addListener('didFocus', this.inputScanSetFocus);
   }
 
   componentWillUnmount() {
+    this.appStateListener.remove(this.inputScanSetFocus);
     this.focusListener.remove(this.inputScanSetFocus);
   }
 
   handleBarCodeScanned = (textInput: String) => {
     const PATTERN = [100, 100, 100, 100];
     const {navigation, userToken} = this.props;
-    if (!Number(textInput) && textInput.length <= 9) {
+    if (!Number(textInput) && textInput.length <= 10) {
       navigation.navigate('Location', {
         mapped_string: textInput
       })
@@ -106,7 +110,9 @@ class HomeScreen extends Component {
           contentContainerStyle={styles.contentContainer}>
           
           <View style={LaserScannerStyle.content}>
-            <Image style={LaserScannerStyle.image} source={barCodeScanner} />
+            <TouchableOpacity onPress={()=>this.inputScan.focus()}>
+                <Image style={LaserScannerStyle.image} source={barCodeScanner} />
+            </TouchableOpacity>            
             <TextInput
               ref={(input) => { this.inputScan = input; }}
               placeholder="Escanear Ubicacion/Producto"
@@ -121,7 +127,7 @@ class HomeScreen extends Component {
                   this.searchWaiting = setTimeout(() => {
                       this.searchWaiting = null;
                       this.handleBarCodeScanned(text);
-                  }, 500);
+                  }, 100);
                   
                 }
               }

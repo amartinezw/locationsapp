@@ -269,6 +269,7 @@ class LocationScannerScreen extends Component {
                   onFocus={() => Keyboard.dismiss()}
                   value={textInput}
                   onChangeText={actionType == 'LOCATE_ITEM' ? this.handleBarCodeScannedLocate : this.handleBarCodeScannedUnallocate}
+                  
                 /> 
               <Text style={{ fontSize: 24}}>{'Total de productos: '+this.counter}</Text>
               <View>
